@@ -1,3 +1,5 @@
+// src/Gateway/NexusPayment.Gateway/Program.cs
+
 // Web uygulamasi olusturmak icin gerekli builder nesnesini baslatiyoruz.
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,7 @@ builder.Services.AddReverseProxy()
 var app = builder.Build();
 
 // YARP ara yazilimini (Middleware) HTTP istek hattina (pipeline) ekliyoruz.
-// Bu satir, gelen isteklerin yakalanip appsettings'deki kurallara gore arka tarafa yonlendirilmesini saglar.
+// Bu satir, gelen isteklerin yakalanip appsettings'deki kurallara gore yonlendirilmesini saglar.
 app.MapReverseProxy();
 
 // Uygulamayi baslatiyor ve gelen HTTP isteklerini dinlemeye basliyoruz.
