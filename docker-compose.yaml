@@ -1,0 +1,23 @@
+# docker-compose.yml
+
+# Docker Compose dosya formatinin surumunu belirtiriz.
+version: '3.8'
+
+# Calistirilacak servislerin listesini baslatiriz.
+services:
+  # Izleme (Tracing) verilerini toplayip gorsellestirecek olan Jaeger servisi.
+  jaeger:
+    # Jaeger'in tum bilesenlerini (Arayuz, Collector, DB) tek bir pakette sunan resmi imajini cekeriz.
+    image: jaegertracing/all-in-one:latest
+    # Konteynerin adini karmasiklasmamasi icin sabitleriz.
+    container_name: nexus-jaeger
+    # Disariya acilacak portlarin eslestirmesini yapariz.
+    ports:
+      # 16686 portu, tarayicidan erisecegimiz Jaeger gorsel arayuzunun (UI) portudur.
+      - '16686:16686'
+      # 4317 portu, mikroservislerimizin loglarini gonderecegi standart OTLP (OpenTelemetry Protocol) gRPC portudur.
+      - '4317:4317'
+    # Konteyner icindeki cevresel degiskenleri ayarlariz.
+    environment:
+      # Jaeger icindeki OTLP toplayicisini aktif hale getiririz ki .NET servislerimiz veri gonderebilsin.
+      - COLLECTOR_OTLP_ENABLED=true
